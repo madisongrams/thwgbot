@@ -11,13 +11,13 @@ lastUgaId = -1
 lastGtId = -1
 while(True):
     num = 0
-    for tweet in tweepy.Cursor(api.search, q="go dawgs OR godawgs", rpp=100, result_type="recent", since_id = lastUgaId, lang="en").items():
+    for tweet in tweepy.Cursor(api.search, q="go dawgs OR godawgs", since_id = lastUgaId, lang="en").items():
         if num == 0:
             lastUgaId = tweet.id
         elif num == 5:
             break
         try:
-            api.update_status("Go Jackets! #THWg", tweet.id)
+            api.update_status(status="Go Jackets! #THWg", in_reply_to_status_id=tweet.id)
             sleep(10)
         except tweepy.RateLimitError:
             sleep(900)
@@ -25,13 +25,13 @@ while(True):
             break #for now merely exit out of loop for now
         num += 1
     num = 5
-    for tweet in tweepy.Cursor(api.search, q="go jackets OR gojackets", rpp=100, result_type="recent", since_id = lastGtId, lang="en").items():
+    for tweet in tweepy.Cursor(api.search, q="go jackets OR gojackets", since_id = lastGtId, lang="en").items():
         if num == 5:
             lastGtId = tweet.id
         if num == 10:
             break
         try:
-            api.update_status("Go Jackets! #TogetherWeSwarm", tweet.id)
+            api.update_status(status="Go Jackets! #TogetherWeSwarm", in_reply_to_status_id=tweet.id)
             sleep(10)
         except tweepy.RateLimitError:
             sleep(900)
