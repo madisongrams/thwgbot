@@ -2,9 +2,12 @@ import tweepy
 import os
 import time
 
-print(os.environ['CONSUMER_KEY'])
-auth = tweepy.OAuthHandler(os.environ['CONSUMER_KEY'], os.environ['CONSUMER_SECRET'])
-auth.set_access_token(os.environ['ACCESS_KEY'], os.environ['ACCESS_SECRET'])
+CONSUMER_KEY = os.environ['CONSUMER_KEY']
+CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
+ACCESS_KEY = os.environ['ACCESS_KEY']
+ACCESS_SECRET = os.environ['ACCESS_SECRET']
+auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
 
 #api.update_status("Hello, World! #THWg")
@@ -24,7 +27,7 @@ while True:
             first = False
         try:
             api.update_status(status="Go Jackets! #THWg", in_reply_to_status_id=status.id)
-            sleep(10)
+            sleep(20)
         except tweepy.RateLimitError:
             sleep(900)
         except tweepy.TweepError as e:
